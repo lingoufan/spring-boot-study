@@ -19,12 +19,12 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonPropertyOrder(value = {"content", "title"})
+//@JsonPropertyOrder(value = {"content", "title"})
 public class Book {
     @JsonIgnore
     private Integer id;
 
-    @JsonProperty("name")
+//    @JsonProperty("name")
     private String author;
 
     private String title;
