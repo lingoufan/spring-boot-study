@@ -20,16 +20,23 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.annotation.Resource;
 
-import static
-        org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @AutoConfigureMockMvc
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
+//@Data
+//@Builder
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Slf4j
 class ArticleControllerTest {
     @Resource
     private  MockMvc mockMvc;
+
+    //mock 对象
+    //private static  MocMvc mockMvc;
+
 //    //在所有测试⽅法执⾏之前进⾏mock对象初始化
 //    @BeforeAll
 //    static void setUp() {

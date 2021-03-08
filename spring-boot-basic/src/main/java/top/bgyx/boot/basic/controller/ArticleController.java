@@ -61,11 +61,19 @@ public class ArticleController {
      * @return AjaxRespone
      */
     @PostMapping("body")
-    public AjaxResponse saveArtcile(@RequestBody Article article) {
+    public AjaxResponse saveArticle(@RequestBody Article article) {
         log.info("saveArticle" + article);
         return  AjaxResponse.success(article);
     }
-
+    /** 删除一篇Article， 使用DELETE方法 （RequestParam 方法接收参数 ）
+     * @param id 文章id
+     * @return AjxResponse*/
+    @ApiOperation("URL 传参 ，根据id删除文章")
+    @DeleteMapping("id")
+    public  AjaxResponse delArticleByparam(@ApiParam ("文章 id") @PathVariable int id,String title){
+        log.info("id"+ id );
+        return  AjaxResponse.success();
+    }
 
     /**
      * 增加一篇 Article，@RequesParam接收参数
@@ -125,6 +133,7 @@ public class ArticleController {
         }
         return  AjaxResponse.success(article);
     }
+
 
 
 

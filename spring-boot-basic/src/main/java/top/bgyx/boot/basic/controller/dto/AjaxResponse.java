@@ -25,7 +25,7 @@ public class AjaxResponse {
     @ApiModelProperty("请求结果描述信息")
     private String message;
     /**
-     * 请求返回数据
+     * 请求返回数据111
      */
     @ApiModelProperty("请求返回数据")
     private Object data;
