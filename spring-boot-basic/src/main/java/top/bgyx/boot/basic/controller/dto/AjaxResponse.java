@@ -29,27 +29,30 @@ public class AjaxResponse {
      */
     @ApiModelProperty("请求返回数据")
     private Object data;
+
     private AjaxResponse() {
     }
+
     /**
      * 请求成功的响应，不带查询数据（⽤于删除、修改、新增接⼝）
      *
      * @return AjaxResponse
      */
-    public static AjaxResponse success(){
+    public static AjaxResponse success() {
         AjaxResponse ajaxResponse = new AjaxResponse();
         ajaxResponse.setCode(200);
         ajaxResponse.setMessage("请求响应成功");
         return ajaxResponse;
 
     }
+
     /**
      * 请求成功的响应，带有查询数据（⽤于数据查询接⼝）
      *
      * @param obj obj
      * @return AjaxResponse
      */
-    public static AjaxResponse success(Object obj){
+    public static AjaxResponse success(Object obj) {
         AjaxResponse ajaxResponse = new AjaxResponse();
         ajaxResponse.setCode(200);
         ajaxResponse.setMessage("请求响应成功");
@@ -60,7 +63,7 @@ public class AjaxResponse {
     /**
      * 请求成功的响应，带有查询数据（⽤于数据查询接⼝）
      *
-     * @param obj obj
+     * @param obj     obj
      * @param message message
      * @return AjaxResponse
      */
@@ -70,6 +73,13 @@ public class AjaxResponse {
         ajaxResponse.setCode(200);
         ajaxResponse.setMessage(message);
         ajaxResponse.setData(obj);
+        return ajaxResponse;
+    }
+
+    public static AjaxResponse failure(String message) {
+        AjaxResponse ajaxResponse = new AjaxResponse();
+        ajaxResponse.setCode(5001);
+        ajaxResponse.setMessage(message);
         return ajaxResponse;
     }
 }

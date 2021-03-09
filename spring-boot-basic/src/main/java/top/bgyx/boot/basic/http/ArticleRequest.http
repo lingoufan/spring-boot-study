@@ -1,0 +1,63 @@
+POST http://localhost:8080/api/v1/articles/form
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="formdata"
+
+{"id":10,contenet:"xiao",title:"chang"}
+--WebAppBoundary--
+###
+
+DELETE http://localhost:8080/api/v1/books/111
+Content-Type: application/x-www-form-urlencoded
+
+
+
+###
+PUT http://localhost:8080/api/v1/books/
+Content-Type: application/x-www-form-urlencoded
+
+id=100&content=xiaochang&title=xiao
+
+###
+
+
+POST http://localhost:8080/api/v1/articles/body
+Content-Type: application/json
+
+{
+  "id": 120,
+  "author": "lifan",
+  "title": "xiaochang",
+  "content": "xiaochang",
+  "createTime": "2021-03-09 19:37:01",
+  "readers": []
+}
+
+###
+
+POST http://localhost:8080/api/v1/articles/param
+Content-Type: application/x-www-form-urlencoded
+
+id=123&content=xiaochang&title=xiaohcang
+
+###
+
+POST http://localhost:8080/api/v1/books/upload
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="programmer.png"
+
+< ./programmer.png
+--WebAppBoundary--
+
+###
+GET http://localhost:8080/api/v1/articles/all
+Accept: application/json
+
+###
+GET http://localhost:8080/api/v1/articles/123
+Accept: application/json
+
+###

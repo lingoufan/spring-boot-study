@@ -2,15 +2,20 @@ package top.bgyx.boot.basic.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import top.bgyx.boot.basic.entity.Book;
 import top.bgyx.boot.basic.entity.BookReader;
 import top.bgyx.boot.basic.controller.dto.AjaxResponse;
 import top.bgyx.boot.basic.controller.dto.Param;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author admin
@@ -58,17 +63,17 @@ public class BookController {
         return AjaxResponse.success(booklist);
     }
 
-    @GetMapping("{id}")
-    public AjaxResponse getBook(@PathVariable int id){
-        Book book= Book.builder()
-                .id(id)
-                .author("fan")
-                .title("java从入门到放弃")
-                .content("java")
-                .createTime(new Date())
-                .build();
-        return AjaxResponse.success(book);
-    }
+//    @GetMapping("{id}")
+//    public AjaxResponse getBook(@PathVariable int id){
+//        Book book= Book.builder()
+//                .id(id)
+//                .author("fan")
+//                .title("java从入门到放弃")
+//                .content("java")
+//                .createTime(new Date())
+//                .build();
+//        return AjaxResponse.success(book);
+//    }
 
     @PostMapping()
     public AjaxResponse saveBook(@RequestBody Book book){
@@ -118,4 +123,36 @@ public class BookController {
 //        log.info(("title" + param.getTitle()));
 //        return  AjaxResponse.success(param);
 //    }
+@PostMapping("upload")
+public  AjaxResponse handleUpload(MultipartFile file, HttpServletRequest request) {
+    //创建文件在服务器的存放路径
+    String path = request.getServletContext().getRealPath("/upload");
+    log.info(path);
+    File fileDir = new File(path);
+    if(!fileDir.exists()) {
+        boolean flag = fileDir.mkdirs();
+        log.info(String.valueOf(flag));
+        log.info("flag" + flag);
+    }
+    //生成文件在服务器的名称的前缀
+    String prefixName = UUID.randomUUID().toString();
+    //取得源文件名
+    String originalFilename = file.getOriginalFilename();
+    //从原文件名中分离出扩展名（后缀）  1111.jpg → jpg
+    assert originalFilename != null;
+    String suffixName = originalFilename.substring(originalFilename.lastIndexOf("."));
+    //拼接新的文件名
+    String fileName = prefixName + suffixName ;
+    log.info(fileName);
+    //创建上传的文件对象
+    File savefile = new File(path + "/" + fileName);
+    try {
+        file.transferTo(savefile);
+    } catch (IOException e) {
+        log.info(e.getMessage());
+        AjaxResponse.failure("文件上传失败");
+    }
+    return AjaxResponse.success(fileName);
+}
+
 }
