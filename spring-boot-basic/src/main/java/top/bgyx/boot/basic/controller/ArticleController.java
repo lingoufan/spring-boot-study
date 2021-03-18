@@ -7,14 +7,15 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import top.bgyx.boot.basic.controller.dto.AjaxResponse;
 import top.bgyx.boot.basic.entity.Article;
 import top.bgyx.boot.basic.entity.ArticleReader;
-import top.bgyx.boot.basic.entity.Book;
-import top.bgyx.boot.basic.entity.BookReader;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -33,6 +34,7 @@ import java.util.*;
 @RequestMapping(value = "api/v1/articles")
 @Slf4j
 @Api(tags = "文章管理接口")
+@Validated
 public class ArticleController {
 
     /**
@@ -56,7 +58,7 @@ public class ArticleController {
                 .author("linfan")
                 .title("Spring Boot从⼊⻔到精通")
                 .content("Spring Boot从⼊⻔到精通")
-                .createTime(new Date())
+                .updateTime(new Date())
                 .readers(readerList)
                 .build();
         log.info("article: " + article);
@@ -108,6 +110,7 @@ public class ArticleController {
             @RequestParam(value = "author", defaultValue = "baigui", required = false)
                     String author,
             @ApiParam("标题")
+            @Length( min = 1, max = 20 ,message = "文章标题长度必须位于1到20之间")
             @RequestParam String title,
             @ApiParam("内容")
             @RequestParam String content,
@@ -119,7 +122,7 @@ public class ArticleController {
                 .title(title)
                 .content(content)
                 .author(author)
-                .createTime(createTime)
+                .updateTime(createTime)
                 .build();
         log.info("saveArtcile" + article);
         return AjaxResponse.success(article);
@@ -143,7 +146,7 @@ public class ArticleController {
                 .author("linfan")
                 .title("SringBoot")
                 .content("SpringBoot从入门到死亡")
-                .createTime(new Date())
+                .updateTime(new Date())
                 .readers(readerList)
                 .build();
 
@@ -152,7 +155,7 @@ public class ArticleController {
                 .author("lin")
                 .title("Vue.js")
                 .content("Vue.js从入门到困难")
-                .createTime(new Date())
+                .updateTime(new Date())
                 .readers(readerList)
                 .build();
         Article[] articles = {article, article2};
@@ -168,7 +171,7 @@ public class ArticleController {
                 .author("fan")
                 .title("java从入门到放弃")
                 .content("java")
-                .createTime(new Date())
+                .updateTime(new Date())
                 .build();
         return AjaxResponse.success(article);
     }

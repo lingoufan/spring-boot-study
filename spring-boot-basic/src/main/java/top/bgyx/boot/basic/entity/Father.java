@@ -4,8 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import javax.validation.constraints.Min;
 
 /**
  * @author admin
@@ -13,10 +16,13 @@ import org.springframework.stereotype.Component;
  * @description Father
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Component
 public class Father {
-    @Value("${family.father.name}")
+    @NotEmpty
     private String  name;
-    @Value("${family.father.age}")
+    @Min(25)
     private  Integer age;
 }

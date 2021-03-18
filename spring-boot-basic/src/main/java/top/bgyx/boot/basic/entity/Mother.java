@@ -15,6 +15,7 @@ import java.util.List;
  * @description Mother
  */
 @Data
+@Builder
 @Component
 @ConfigurationProperties(prefix = "family.mother")
 public class Mother {

@@ -4,5 +4,10 @@
       "name": "file-size",
       "type": "java.lang.String",
       "description": "Description for file-size."
-  }
-] }
+    },
+    {
+      "name": "datasource.url",
+      "type": "java.lang.String",
+      "description": "Description for datasource.url."
+    }
+  ] }
